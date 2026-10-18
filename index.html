@@ -1,0 +1,421 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07110e">
+  <title>CricketZone | International Cricket</title>
+  <style>
+    :root {
+      --bg: #07110e;
+      --panel: #101d18;
+      --green: #42e58b;
+      --muted: #9aada4;
+      --line: #263b30;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #f5fff8;
+      background: var(--bg);
+    }
+
+    header {
+      padding: 20px 7%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .logo { font-size: 23px; font-weight: 800; }
+    .logo span { color: var(--green); }
+
+    nav { display: flex; gap: 20px; flex-wrap: wrap; }
+    a { color: inherit; text-decoration: none; }
+    nav a:hover { color: var(--green); }
+
+    .hero {
+      padding: 48px 7% 30px;
+      background: radial-gradient(ellipse at top right, #17462f, transparent 65%);
+    }
+
+    .eyebrow {
+      color: var(--green);
+      font-weight: bold;
+      letter-spacing: 2px;
+      font-size: 12px;
+    }
+
+    h1 { font-size: clamp(32px, 5vw, 54px); margin: 14px 0; }
+    .muted { color: var(--muted); line-height: 1.6; }
+
+    main { padding: 10px 7% 55px; }
+
+    .notice {
+      border: 1px solid #8c6e32;
+      background: #292214;
+      color: #ffdf9a;
+      border-radius: 10px;
+      padding: 13px 15px;
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 10px 0 25px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 25px 0 16px;
+    }
+
+    h2 { font-size: 23px; margin: 0; }
+
+    .filters { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    button, select {
+      color: #f5fff8;
+      background: #16271e;
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button.active, .primary {
+      background: var(--green);
+      color: #06130b;
+      border-color: var(--green);
+      font-weight: bold;
+    }
+
+    button:focus-visible, a:focus-visible, select:focus-visible {
+      outline: 2px solid var(--green);
+      outline-offset: 3px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      padding: 20px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+
+    .tag {
+      color: var(--green);
+      font-weight: bold;
+    }
+
+    .team {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 15px 0;
+      font-weight: bold;
+    }
+
+    .score { text-align: right; }
+    .details { color: var(--muted); font-size: 12px; font-weight: normal; margin-top: 5px; }
+    .result { color: var(--muted); font-size: 13px; margin: 20px 0; min-height: 18px; }
+
+    .card button { width: 100%; }
+    button:disabled { opacity: .6; cursor: not-allowed; }
+
+    .empty {
+      padding: 30px;
+      text-align: center;
+      color: var(--muted);
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      grid-column: 1 / -1;
+    }
+
+    .watch-panel {
+      margin-top: 38px;
+      padding: 25px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: linear-gradient(130deg, #13291e, #101d18);
+    }
+
+    .watch-panel p { line-height: 1.7; color: var(--muted); }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 24px 7%;
+      font-size: 12px;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    @media (max-width: 560px) {
+      header { padding: 18px 5%; align-items: flex-start; flex-direction: column; }
+      .hero, main { padding-left: 5%; padding-right: 5%; }
+      nav { gap: 15px; font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="logo" href="#">Cricket<span>Zone</span> 🏏</a>
+    <nav aria-label="Main navigation">
+      <a href="#matches">Matches</a>
+      <a href="#fixtures">Fixtures</a>
+      <a href="#watch">Watch Live</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">YOUR INTERNATIONAL CRICKET HUB</div>
+    <h1>Every Match.<br><span style="color:var(--green)">One Place.</span></h1>
+    <p class="muted">International cricket scores, fixtures and official viewing links.</p>
+  </section>
+
+  <main>
+    <div class="notice">
+      DEMO MODE — The scores and fixtures below are sample data,
+      not actual live match information.
+    </div>
+
+    <section id="matches">
+      <div class="section-head">
+        <h2>Match Centre</h2>
+        <div class="filters" aria-label="Filter matches">
+          <button class="active" data-filter="all">All</button>
+          <button data-filter="live">Live</button>
+          <button data-filter="upcoming">Upcoming</button>
+        </div>
+      </div>
+      <div class="grid" id="matchList"></div>
+    </section>
+
+    <section class="watch-panel" id="watch">
+      <div class="eyebrow">OFFICIAL BROADCASTS</div>
+      <h2 style="margin-top:12px">Watch Cricket Live</h2>
+      <p>
+        Select a match above to check its official viewing option.
+        A video will only be shown when you configure a stream you
+        are authorized to distribute or embed.
+      </p>
+      <p id="watchStatus" aria-live="polite">
+        No official stream configured yet.
+      </p>
+      <div id="playerArea"></div>
+    </section>
+
+    <section id="fixtures" style="margin-top:38px">
+      <h2>Upcoming Fixtures</h2>
+      <p class="muted">Browse the upcoming matches in this demo.</p>
+      <div id="fixtureList" class="grid"></div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>CricketZone</strong> — An independent cricket information website.<br>
+    Team names and sample scores are for demonstration only.
+    Broadcast rights belong to their respective owners.
+  </footer>
+
+  <script>
+    // Demo data only. Replace with verified data from a cricket API.
+    const matches = [
+      {
+        id: 1,
+        status: "live",
+        format: "ODI",
+        competition: "International Cricket",
+        home: "Sri Lanka",
+        away: "Australia",
+        homeScore: "245/6",
+        awayScore: "182/4",
+        homeOvers: "48.0 overs",
+        awayOvers: "36.2 overs",
+        summary: "Sample score — not a real match",
+        officialStreamUrl: ""
+      },
+      {
+        id: 2,
+        status: "upcoming",
+        format: "T20I",
+        competition: "International Cricket",
+        home: "India",
+        away: "England",
+        homeScore: "—",
+        awayScore: "—",
+        homeOvers: "",
+        awayOvers: "",
+        summary: "Sample fixture — date to be confirmed",
+        officialStreamUrl: ""
+      },
+      {
+        id: 3,
+        status: "upcoming",
+        format: "Test",
+        competition: "International Cricket",
+        home: "New Zealand",
+        away: "South Africa",
+        homeScore: "—",
+        awayScore: "—",
+        homeOvers: "",
+        awayOvers: "",
+        summary: "Sample fixture — date to be confirmed",
+        officialStreamUrl: ""
+      }
+    ];
+
+    const matchList = document.getElementById("matchList");
+    const fixtureList = document.getElementById("fixtureList");
+    const watchStatus = document.getElementById("watchStatus");
+    const playerArea = document.getElementById("playerArea");
+
+    function makeCard(match) {
+      const card = document.createElement("article");
+      card.className = "card";
+
+      const top = document.createElement("div");
+      top.className = "card-top";
+
+      const competition = document.createElement("span");
+      competition.textContent = match.competition + " · " + match.format;
+
+      const status = document.createElement("span");
+      status.className = "tag";
+      status.textContent = match.status === "live" ? "● DEMO LIVE" : "UPCOMING";
+
+      top.append(competition, status);
+
+      const teams = document.createElement("div");
+      teams.innerHTML = `
+        <div class="team">
+          <span class="home"></span>
+          <span class="score homeScore"></span>
+        </div>
+        <div class="team">
+          <span class="away"></span>
+          <span class="score awayScore"></span>
+        </div>
+      `;
+
+      teams.querySelector(".home").textContent = match.home;
+      teams.querySelector(".away").textContent = match.away;
+      teams.querySelector(".homeScore").textContent = match.homeScore;
+      teams.querySelector(".awayScore").textContent = match.awayScore;
+
+      const homeOvers = document.createElement("div");
+      homeOvers.className = "details";
+      homeOvers.textContent = match.homeOvers;
+
+      const awayOvers = document.createElement("div");
+      awayOvers.className = "details";
+      awayOvers.textContent = match.awayOvers;
+
+      teams.querySelector(".homeScore").append(homeOvers);
+      teams.querySelector(".awayScore").append(awayOvers);
+
+      const summary = document.createElement("div");
+      summary.className = "result";
+      summary.textContent = match.summary;
+
+      const button = document.createElement("button");
+      button.className = "primary";
+      button.textContent = "View match / stream";
+      button.addEventListener("click", () => selectMatch(match));
+
+      card.append(top, teams, summary, button);
+      return card;
+    }
+
+    function selectMatch(match) {
+      playerArea.replaceChildren();
+
+      if (!match.officialStreamUrl) {
+        watchStatus.textContent =
+          "No authorized stream configured for " + match.home +
+          " vs " + match.away + ". Add an official viewing URL when available.";
+        document.getElementById("watch").scrollIntoView({
+          behavior: "smooth"
+        });
+        return;
+      }
+
+      // Only open a valid HTTPS URL from your trusted configuration.
+      try {
+        const url = new URL(match.officialStreamUrl);
+        if (url.protocol !== "https:") throw new Error("HTTPS required");
+
+        watchStatus.textContent = "Opening the configured official viewing page.";
+
+        const link = document.createElement("a");
+        link.href = url.href;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = "Open official stream in a new tab";
+        playerArea.append(link);
+      } catch {
+        watchStatus.textContent = "The configured stream URL is invalid.";
+      }
+    }
+
+    function renderMatches(filter = "all") {
+      matchList.replaceChildren();
+
+      const filtered = matches.filter(match =>
+        filter === "all" || match.status === filter
+      );
+
+      if (!filtered.length) {
+        const empty = document.createElement("div");
+        empty.className = "empty";
+        empty.textContent = "No matches in this category.";
+        matchList.append(empty);
+        return;
+      }
+
+      filtered.forEach(match => matchList.append(makeCard(match)));
+    }
+
+    document.querySelectorAll("[data-filter]").forEach(button => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll("[data-filter]").forEach(item => {
+          item.classList.toggle("active", item === button);
+        });
+        renderMatches(button.dataset.filter);
+      });
+    });
+
+    function renderFixtures() {
+      fixtureList.replaceChildren();
+      matches
+        .filter(match => match.status === "upcoming")
+        .forEach(match => fixtureList.append(makeCard(match)));
+    }
+
+    renderMatches();
+    renderFixtures();
+  </script>
+</body>
+</html>
